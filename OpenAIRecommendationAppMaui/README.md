@@ -26,7 +26,7 @@ Install NuGet packages `Microsoft.Extensions.Configuration.Json` and `Microsoft.
 
 Install the `Azure.AI.OpenAI` package. it's in beta so you need to include prerelease. 
 
-Add a Services folder, and create the following `OpenAIService` class:
+Add a `Services` folder in the root of the project, and create the following `OpenAIService` class:
 
 ```
 using Azure.AI.OpenAI;
