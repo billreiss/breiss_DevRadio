@@ -17,7 +17,7 @@ Add an `appsettings.json`file to the `wwwroot` of the project. This will automat
 
 > Important Note: For production, you will want to protect your OpenAI API Key, the appsettings.json is not secure and your key can be easily retrieved. Implement a web service to retrieve the key, and then if you wish to store it, use encryption.
 
-Install the `Azure.AI.OpenAI` NuGet package. it's in beta so you need to include prerelease. 
+Install the `Azure.AI.OpenAI` NuGet package. It's in beta so you need to include prerelease. 
 
 Add a Services folder, and create the following `OpenAIService` class:
 
