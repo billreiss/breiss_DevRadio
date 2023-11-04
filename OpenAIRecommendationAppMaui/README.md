@@ -7,7 +7,7 @@ This sample is based on Alvin Ashcraft's sample here [Tutorial--Create a recomme
 
 If you want to recreate this sample yourself, follow the following steps:
 
-Install the .NET MAUI workload in Visual Studio. Details here: https://learn.microsoft.com/en-us/dotnet/maui/get-started/installation?tabs=vswin
+Install the .NET MAUI workload in Visual Studio. Details here: https://learn.microsoft.com/en-us/dotnet/maui/get-started/installation
 
 Create a new MAUI App project. Name it `OpenAIRecommendationAppMaui`. 
 
