@@ -15,7 +15,7 @@ Add an `appsettings.json`file to the root of the project, set the build action t
 
 Install NuGet packages `Microsoft.Extensions.Configuration.Json` and `Microsoft.Extensions.Configuration.Binder`. This is so we can consume the `appsettings.json` file.
 
-Install the `Azure.AI.OpenAI` NuGet package. it's in beta so you need to include prerelease. 
+Install the `Azure.AI.OpenAI` NuGet package. It's in beta so you need to include prerelease. 
 
 Add a Services folder, and create the following `OpenAIService` class:
 
