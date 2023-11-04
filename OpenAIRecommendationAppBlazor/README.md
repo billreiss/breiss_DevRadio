@@ -91,7 +91,7 @@ There are two methods here to call into OpenAI, one if you want to interact with
 
 We'll register and register the OpenAI service we just created. This is done in `Program.cs`.
 
-Replace the `builder.Build().RunAsync` call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
+Replace the `builder.Build().RunAsync()` call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
 
 ```
 // Set up the OpenAI client
