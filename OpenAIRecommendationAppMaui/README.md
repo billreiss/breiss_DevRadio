@@ -111,7 +111,7 @@ Add the following right after the builder calls into UseMauiApp etc:
 
 If your project name is different, you'll need to change the location of the `appsettings.json` file.
 
-Now that we have our helper service registered, and the `MainPage` is registered, we can do dependency injection to import the service into `MainPage`. Update `MainPage.xaml.cs` as follows:
+Now that we have our helper service registered, and the `MainPage` is registered, we can do dependency injection to import the service into `MainPage`. Update `MainPage.xaml.cs` as follows, replacing the default constructor:
 
 ```
         OpenAIService openAIService;
