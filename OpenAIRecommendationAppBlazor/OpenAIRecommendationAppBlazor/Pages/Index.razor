@@ -1,0 +1,39 @@
+﻿@page "/"
+@using OpenAIRecommendationAppBlazor.Data
+@using OpenAIRecommendationAppBlazor.Services;
+@inject OpenAIService openAIService;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Local AI Recommendations</h1>
+
+<EditForm OnSubmit="OnSubmit" Model="@recommendation">
+    <div>City</div>
+    <InputText @bind-Value="@recommendation.City"></InputText>
+    <div>I'd like to have a recommendation for'</div>
+    <InputSelect @bind-Value="@recommendation.RecommendationType">
+        <option value="Select">--Select--</option>
+        <option value="restaurant">A restaurant</option>
+        <option value="hotel">A hotel</option>
+        <option value="attractions">Attractions</option>
+    </InputSelect>
+    <div style="margin: 5px 0px 5px 0px">
+        <button type="submit" class="btn btn-success">
+            Submit
+        </button>
+    </div>
+</EditForm>
+<div>@responseText</div>
+@code
+{
+    Recommendation recommendation = new Recommendation();
+    string responseText = "";
+
+    async void OnSubmit()
+    {
+        responseText = "Working on it...This can take a little while based on the model selected.";
+        var message = await openAIService.CallOpenAI(recommendation.RecommendationType, recommendation.City);
+        responseText = message;
+        this.StateHasChanged();
+    }
+}

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OpenAIRecommendationAppMaui.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Local AI recommendations"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="LocationEntry"
+                Placeholder="Enter your location"
+                SemanticProperties.Hint="Enter the location for recommendations"
+                HorizontalOptions="Center"/>
+
+            <Button
+                x:Name="RestaurantBtn"
+                Text="Get restaurant recommendations"
+                SemanticProperties.Hint="Gets restaurant recommendations when you click"
+                Clicked="OnRestaurantClicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="HotelBtn"
+                Text="Get hotel recommendations"
+                SemanticProperties.Hint="Gets hotel recommendations when you click"
+                Clicked="OnHotelClicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="AttractionBtn"
+                Text="Get attraction recommendations"
+                SemanticProperties.Hint="Gets attraction recommendations when you click"
+                Clicked="OnAttractionClicked"
+                HorizontalOptions="Center" />
+
+            <Label x:Name="SmallLabel"
+                Text="Click a button for recommendations!"
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="18"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
