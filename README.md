@@ -1,3 +1,3 @@
 # breiss_DevRadio
 
-Samples for DevRadio episodes, see README files in each folder for details.
+Samples for Microsoft dev/radio episodes, see README.md files in each folder for details.
