@@ -209,4 +209,4 @@ namespace OpenAIRecommendationAppMaui
 }
 ```
 
-You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. 
+You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. That's it, it should just run, pretty simple.
