@@ -80,11 +80,11 @@ public class OpenAIService
 }
 ```
 
-There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one, the chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
+There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one. The chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
 
 We'll register and register the OpenAI service we just created. This is done in `Program.cs`.
 
-Replace the builder.Build().RunAsync call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
+Replace the `builder.Build().RunAsync` call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
 
 ```
 // Set up the OpenAI client
@@ -143,6 +143,6 @@ Now that we have our helper service registered, let's replace the contents of `I
 }
 ```
 
-We are receiving the AI helper service via Dependency Injection then calling into it on the submission of the form. You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model.
+We are receiving the AI helper service via Dependency Injection then calling into it on the submission of the form. You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. That's it, run the app and see the results.
 
 
