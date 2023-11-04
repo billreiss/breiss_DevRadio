@@ -2,6 +2,8 @@ This sample is inspired by Alvin Ashcraft's sample here [Tutorial--Create a reco
 
 If you want to recreate this sample yourself, follow the following steps:
 
+You'll need to install the ASP.NET workload in Visual Studio to have access to the Blazor project templates.
+
 Create a new Blazor WebAssembly project. Name it `OpenAIRecommendationAppBlazor`. 
 
 Add an `appsettings.json`file to the `wwwroot` of the project. This will automatically be picked up by Blazor. The content should look like this. A null endpoint will hit openai.com, if you have an Azure OpenAI instance put the endpoint here.
