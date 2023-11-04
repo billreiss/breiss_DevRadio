@@ -19,10 +19,10 @@ Add an `appsettings.json`file to the `wwwroot` of the project. This will automat
 
 Install the `Azure.AI.OpenAI` NuGet package. It's in beta so you need to include prerelease. 
 
-Add a Services folder, and create the following `OpenAIService` class:
+Add a `Services` folder in the root of the project, and create the following `OpenAIService` class:
 
 ```
-sing Azure.AI.OpenAI;
+using Azure.AI.OpenAI;
 using Azure;
 
 namespace OpenAIRecommendationAppBlazor.Services;
