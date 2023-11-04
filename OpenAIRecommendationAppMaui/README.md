@@ -1,3 +1,7 @@
+Calling OpenAI from .NET MAUI
+
+.NET MAUI is a framework to create cross platform .NET applications for Windows, Mac, iOS, and Android among others. 
+
 This sample is based on Alvin Ashcraft's sample here [Tutorial--Create a recommendation app with .NET MAUI and ChatGPT - Windows apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/windows-dotnet-maui/tutorial-maui-ai), but I swapped out the OpenAI library he used with the official Microsoft Azure OpenAI package. Despite its name, it can hit OpenAI.com, doesn't have to hit Azure. So all you need is an OpenAI account and an API key.
 
 If you want to recreate this sample yourself, follow the following steps:
