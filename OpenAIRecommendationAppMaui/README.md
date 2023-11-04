@@ -7,6 +7,8 @@ This sample is based on Alvin Ashcraft's sample here [Tutorial--Create a recomme
 
 If you want to recreate this sample yourself, follow the following steps:
 
+Install the .NET MAUI workload in Visual Studio. Details here: https://learn.microsoft.com/en-us/dotnet/maui/get-started/installation?tabs=vswin
+
 Create a new MAUI App project. Name it `OpenAIRecommendationAppMaui`. 
 
 Add an `appsettings.json`file to the root of the project, set the build action to Embedded Resource. The content should look like this. A null endpoint will hit openai.com, if you have an Azure OpenAI instance put the endpoint here.
