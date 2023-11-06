@@ -105,7 +105,8 @@ Add the following right after the builder calls into UseMauiApp etc:
             // Set up the OpenAI client
             var openAIKey = config["OpenAIKey"];
             var openAIEndpoint = config["OpenAIEndpoint"];
-            OpenAIService svc = new OpenAIService(openAIKey, openAIEndpoint);
+            OpenAIService svc = new OpenAIService();
+            svc.Initialize(openAIKey, openAIEndpoint);
             builder.Services.AddSingleton<OpenAIService>(svc);
 ```
 
