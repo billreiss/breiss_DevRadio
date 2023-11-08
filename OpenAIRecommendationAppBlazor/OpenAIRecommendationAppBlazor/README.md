@@ -20,7 +20,7 @@ Install the Azure.AI.OpenAI package. it's in beta so you need to include prerele
 Add a Services folder, and create the following `OpenAIService` class:
 
 ```
-sing Azure.AI.OpenAI;
+using Azure.AI.OpenAI;
 using Azure;
 
 namespace OpenAIRecommendationAppBlazor.Services;
