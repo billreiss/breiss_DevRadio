@@ -17,6 +17,8 @@ Add an `appsettings.json`file to the `wwwroot` of the project. This will automat
 
 Install the Azure.AI.OpenAI package. it's in beta so you need to include prerelease. 
 
+> Important Note: Since this library is in beta, the API is still evolving. This sample is currently expecting version 1.0.0-beta.8. At this time, there is a beta 9 that has breaking API changes. It also seems to have an issue with non-chat models currently and the response is truncated. I'll update this sample when there is a viable new beta or official release.
+
 Add a Services folder, and create the following `OpenAIService` class:
 
 ```
