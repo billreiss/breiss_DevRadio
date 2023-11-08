@@ -26,6 +26,10 @@ Install NuGet packages `Microsoft.Extensions.Configuration.Json` and `Microsoft.
 
 Install the `Azure.AI.OpenAI` package. it's in beta so you need to include prerelease. 
 
+> Important Note: Since this library is in beta, the API is still evolving. This sample is currently expecting version 1.0.0-beta.8. At this time, there is a beta 9 that has breaking API changes. It also seems to have an issue with non-chat models currently and the response is truncated. I'll update this sample when there is a viable new beta or official release.
+
+
+
 Add a `Services` folder in the root of the project, and create the following `OpenAIService` class:
 
 ```
@@ -211,3 +215,5 @@ namespace OpenAIRecommendationAppMaui
 ```
 
 You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. That's it, it should just run, pretty simple.
+
+
