@@ -4,18 +4,23 @@ If you want to recreate this sample yourself, follow the following steps:
 
 Create a new MAUI App project. Name it `OpenAIRecommendationAppMaui`. 
 
-Add an `appsettings.json`file to the root of the project, set the build action to Embedded Resource. The content should look like this. A null endpoint will hit openai.com, if you have an Azure OpenAI instance put the endpoint here.
+Add an `Constants.cs`file to the root of the project. The content should look like this. A null endpoint will hit openai.com, if you have an Azure OpenAI instance put the endpoint here.
 
 ```
+namespace OpenAIRecommendationAppMaui;
+
+static internal class Constants
 {
-  "OpenAIKey": "my-openai-key",
-  "OpenAIEndpoint": null
+    public const string OpenAIKey = "my-openai-key";
+    public const string OpenAIEndpoint = null;
 }
 ```
 
-Install NuGet packages `Microsoft.Extensions.Configuration.Json` and `Microsoft.Extensions.Configuration.Binder`. This is so we can consume the `appsettings.json` file.
+> Important Note: For production, you will want to protect your OpenAI API Key, including it as a contant in your code is not secure and your key can be easily retrieved. Implement a web service to retrieve the key, and then if you wish to store it, use encryption such as Secure String.
 
 Install the `Azure.AI.OpenAI` NuGet package. It's in beta so you need to include prerelease. 
+
+> Important Note: Since this library is in beta, the API is still evolving. This sample is currently expecting version 1.0.0-beta.8. At this time, there is a beta 9 that has breaking API changes. It also seems to have an issue with non-chat models currently and the response is truncated. I'll update this sample when there is a viable new beta or official release.
 
 Add a Services folder, and create the following `OpenAIService` class:
 
@@ -82,25 +87,17 @@ public class OpenAIService
 
 There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one, the chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
 
-We'll register `MainPage`, retrieve the `appsettings.json`, and register the OpenAI service we just created. This is done in `MauiProgram.cs`.
+We'll register `MainPage`,and register the OpenAI service we just created. This is done in `MauiProgram.cs`.
 
 Add the following right after the builder calls into UseMauiApp etc:
 
 ```
             builder.Services.AddTransient<MainPage>();
-            // add appsettings.json to the Config
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OpenAIRecommendationAppMaui.appsettings.json");
-            var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
-            builder.Configuration.AddConfiguration(config);
 
-            // Set up the OpenAI client
-            var openAIKey = config["OpenAIKey"];
-            var openAIEndpoint = config["OpenAIEndpoint"];
             OpenAIService svc = new OpenAIService();
-            svc.Initialize(openAIKey, openAIEndpoint);
+            svc.Initialize(Constants.OpenAIKey, Constants.OpenAIEndpoint);
             builder.Services.AddSingleton<OpenAIService>(svc);
 ```
-If your project name is different, you'll need to change the location of the `appsettings.json` file.
 
 Now that we have our helper service registered, and the `MainPage` is registered, we can do dependency injection to import the service into `MainPage`. Update `MainPage.xaml.cs` as follows:
 ```
