@@ -1,8 +1,15 @@
+Calling OpenAI from .NET MAUI
+=============================
+
+.NET MAUI is a framework to create cross platform .NET applications for Windows, Mac, iOS, and Android among others. It is the successor of Xamarin Forms.
+
 This sample is based on Alvin Ashcraft's sample here [Tutorial--Create a recommendation app with .NET MAUI and ChatGPT - Windows apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/windows-dotnet-maui/tutorial-maui-ai), but I swapped out the OpenAI library he used with the official Microsoft Azure OpenAI package. Despite its name, it can hit OpenAI.com, doesn't have to hit Azure. So all you need is an OpenAI account and an API key.
 
 If you want to recreate this sample yourself, follow the following steps:
 
-Create a new MAUI App project. Name it `OpenAIRecommendationAppMaui`. 
+Install the .NET MAUI workload in Visual Studio. Details here: https://learn.microsoft.com/en-us/dotnet/maui/get-started/installation
+
+Create a new .NET MAUI App project. Name it `OpenAIRecommendationAppMaui`. 
 
 Add an `appsettings.json`file to the root of the project, set the build action to Embedded Resource. The content should look like this. A null endpoint will hit openai.com, if you have an Azure OpenAI instance put the endpoint here.
 
@@ -19,7 +26,7 @@ Install NuGet packages `Microsoft.Extensions.Configuration.Json` and `Microsoft.
 
 Install the `Azure.AI.OpenAI` package. it's in beta so you need to include prerelease. 
 
-Add a Services folder, and create the following `OpenAIService` class:
+Add a `Services` folder in the root of the project, and create the following `OpenAIService` class:
 
 ```
 using Azure.AI.OpenAI;
@@ -82,7 +89,7 @@ public class OpenAIService
 }
 ```
 
-So there are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one, the chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
+There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one. The chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
 
 We'll register `MainPage`, retrieve the `appsettings.json`, and register the OpenAI service we just created. This is done in `MauiProgram.cs`.
 
@@ -98,13 +105,14 @@ Add the following right after the builder calls into UseMauiApp etc:
             // Set up the OpenAI client
             var openAIKey = config["OpenAIKey"];
             var openAIEndpoint = config["OpenAIEndpoint"];
-            OpenAIService svc = new OpenAIService(openAIKey, openAIEndpoint);
+            OpenAIService svc = new OpenAIService();
+            svc.Initialize(openAIKey, openAIEndpoint);
             builder.Services.AddSingleton<OpenAIService>(svc);
 ```
 
 If your project name is different, you'll need to change the location of the `appsettings.json` file.
 
-Now that we have our helper service registered, and the `MainPage` is registered, we can do dependency injection to import the service into `MainPage`. Update `MainPage.xaml.cs` as follows:
+Now that we have our helper service registered, and the `MainPage` is registered, we can do dependency injection to import the service into `MainPage`. Update `MainPage.xaml.cs` as follows, replacing the default constructor:
 
 ```
         OpenAIService openAIService;
@@ -202,4 +210,4 @@ namespace OpenAIRecommendationAppMaui
 }
 ```
 
-You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. 
+You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. That's it, it should just run, pretty simple.
