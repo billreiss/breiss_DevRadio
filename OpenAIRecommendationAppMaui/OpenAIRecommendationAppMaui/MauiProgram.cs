@@ -20,16 +20,8 @@ namespace OpenAIRecommendationAppMaui
 
             builder.Services.AddTransient<MainPage>();
 
-            // add appsettings.json to the Config
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OpenAIRecommendationAppMaui.appsettings.json");
-            var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
-            builder.Configuration.AddConfiguration(config);
-
-            // Set up the OpenAI client
-            var openAIKey = config["OpenAIKey"];
-            var openAIEndpoint = config["OpenAIEndpoint"];
             OpenAIService svc = new OpenAIService();
-            svc.Initialize(openAIKey, openAIEndpoint);
+            svc.Initialize(Constants.OpenAIKey, Constants.OpenAIEndpoint);
             builder.Services.AddSingleton<OpenAIService>(svc);
 #if DEBUG
             builder.Logging.AddDebug();
