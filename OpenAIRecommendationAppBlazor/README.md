@@ -1,13 +1,6 @@
-Calling OpenAI from .NET Blazor
-===============================
-
-.NET Blazor is a framework for developing web applications using C# for interactivity and business logic.
-
 This sample is inspired by Alvin Ashcraft's sample here [Tutorial--Create a recommendation app with .NET MAUI and ChatGPT - Windows apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/windows-dotnet-maui/tutorial-maui-ai), but I swapped out the OpenAI library he used with the official Microsoft Azure OpenAI package. Despite its name, it can hit OpenAI.com, doesn't have to hit Azure. So all you need is an OpenAI account and an API key. I also ported it to Blazor.
 
 If you want to recreate this sample yourself, follow the following steps:
-
-You'll need to install the ASP.NET workload in Visual Studio to have access to the Blazor project templates.
 
 Create a new Blazor WebAssembly project. Name it `OpenAIRecommendationAppBlazor`. 
 
@@ -22,9 +15,9 @@ Add an `appsettings.json`file to the `wwwroot` of the project. This will automat
 
 > Important Note: For production, you will want to protect your OpenAI API Key, the appsettings.json is not secure and your key can be easily retrieved. Implement a web service to retrieve the key, and then if you wish to store it, use encryption.
 
-Install the `Azure.AI.OpenAI` NuGet package. It's in beta so you need to include prerelease. 
+Install the Azure.AI.OpenAI package. it's in beta so you need to include prerelease. 
 
-Add a `Services` folder in the root of the project, and create the following `OpenAIService` class:
+Add a Services folder, and create the following `OpenAIService` class:
 
 ```
 using Azure.AI.OpenAI;
@@ -87,11 +80,11 @@ public class OpenAIService
 }
 ```
 
-There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one. The chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
+There are two methods here to call into OpenAI, one if you want to interact with the non-chat DaVinci model or the chat based GPT 3.5 model. Choose your model based on your need, one of these or a different one, the chat based model is much slower but will provide better results. If you wanted to use chat in a more interactive way, build up your list of chat history as chat messages, and hold on to it so you can pass it back in to the API. In this sample we are starting a new conversation every time. Some models are only available through the chat interface, like the GPT 3.5 model.
 
 We'll register and register the OpenAI service we just created. This is done in `Program.cs`.
 
-Replace the `builder.Build().RunAsync()` call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
+Replace the builder.Build().RunAsync call with the following, the config isn't available until the builder is built, so we register the service then initialize it based on the config once it's available.
 
 ```
 // Set up the OpenAI client
@@ -110,22 +103,24 @@ Now that we have our helper service registered, let's replace the contents of `I
 
 ```
 @page "/"
-@using OpenAIRecommendationAppBlazor.Data
 @using OpenAIRecommendationAppBlazor.Services;
+@using System.ComponentModel.DataAnnotations;
 @inject OpenAIService openAIService;
 
 <PageTitle>Index</PageTitle>
 
 <h1>Local AI Recommendations</h1>
 
-<EditForm OnSubmit="OnSubmit" Model="@recommendation">
+<EditForm OnValidSubmit="OnSubmit" Model="@recommendation">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div>City</div>
     <InputText @bind-Value="@recommendation.City"></InputText>
     <div>I'd like to have a recommendation for'</div>
     <InputSelect @bind-Value="@recommendation.RecommendationType">
-        <option value="Select">--Select--</option>
-        <option value="restaurant">A restaurant</option>
-        <option value="hotel">A hotel</option>
+        <option value="">--Select--</option>
+        <option value="restaurant">Restaurants</option>
+        <option value="hotel">Hotels</option>
         <option value="attractions">Attractions</option>
     </InputSelect>
     <div style="margin: 5px 0px 5px 0px">
@@ -147,9 +142,15 @@ Now that we have our helper service registered, let's replace the contents of `I
         responseText = message;
         this.StateHasChanged();
     }
+
+    public class Recommendation
+    {
+        [Required]
+        public string City { get; set; } = "";
+        [Required]
+        public string RecommendationType { get; set; } = "";
+    }
 }
 ```
 
-We are receiving the AI helper service via Dependency Injection then calling into it on the submission of the form. You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model. That's it, run the app and see the results.
-
-
+We are receiving the AI helper service via Dependency Injection then calling into it on the submission of the form. You can change the method call from CallOpenAI to CallOpenAIChat if you want to use the ChatGPT 3.5 model.
