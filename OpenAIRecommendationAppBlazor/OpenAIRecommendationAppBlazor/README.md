@@ -103,22 +103,24 @@ Now that we have our helper service registered, let's replace the contents of `I
 
 ```
 @page "/"
-@using OpenAIRecommendationAppBlazor.Data
 @using OpenAIRecommendationAppBlazor.Services;
+@using System.ComponentModel.DataAnnotations;
 @inject OpenAIService openAIService;
 
 <PageTitle>Index</PageTitle>
 
 <h1>Local AI Recommendations</h1>
 
-<EditForm OnSubmit="OnSubmit" Model="@recommendation">
+<EditForm OnValidSubmit="OnSubmit" Model="@recommendation">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div>City</div>
     <InputText @bind-Value="@recommendation.City"></InputText>
     <div>I'd like to have a recommendation for'</div>
     <InputSelect @bind-Value="@recommendation.RecommendationType">
-        <option value="Select">--Select--</option>
-        <option value="restaurant">A restaurant</option>
-        <option value="hotel">A hotel</option>
+        <option value="">--Select--</option>
+        <option value="restaurant">Restaurants</option>
+        <option value="hotel">Hotels</option>
         <option value="attractions">Attractions</option>
     </InputSelect>
     <div style="margin: 5px 0px 5px 0px">
@@ -139,6 +141,14 @@ Now that we have our helper service registered, let's replace the contents of `I
         var message = await openAIService.CallOpenAI(recommendation.RecommendationType, recommendation.City);
         responseText = message;
         this.StateHasChanged();
+    }
+
+    public class Recommendation
+    {
+        [Required]
+        public string City { get; set; } = "";
+        [Required]
+        public string RecommendationType { get; set; } = "";
     }
 }
 ```
