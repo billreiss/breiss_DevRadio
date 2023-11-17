@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using OpenAIRecommendationAppMaui.Services;
-using System.Reflection;
 
 namespace OpenAIRecommendationAppMaui
 {

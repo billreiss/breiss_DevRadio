@@ -10,7 +10,6 @@ namespace OpenAIRecommendationAppMaui
             openAIService = svc;
             InitializeComponent();
         }
-
         private async void OnRestaurantClicked(object sender, EventArgs e)
         {
             await GetRecommendation("restaurant");
@@ -38,4 +37,5 @@ namespace OpenAIRecommendationAppMaui
             SmallLabel.Text = message;
         }
     }
+
 }

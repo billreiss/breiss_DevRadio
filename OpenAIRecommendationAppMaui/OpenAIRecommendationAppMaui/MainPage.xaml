@@ -5,22 +5,18 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
-
+            Spacing="25">
             <Label
                 Text="Local AI recommendations"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-
             <Entry
                 x:Name="LocationEntry"
                 Placeholder="Enter your location"
                 SemanticProperties.Hint="Enter the location for recommendations"
                 HorizontalOptions="Center"/>
-
             <Button
                 x:Name="RestaurantBtn"
                 Text="Get restaurant recommendations"
