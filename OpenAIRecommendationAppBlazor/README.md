@@ -1,6 +1,8 @@
 Calling OpenAI from ASP.NET Blazor
 ==================================
 
+There is a video of this sample that you can follow along with here https://www.youtube.com/watch?v=QS8qY1RNsmk
+
 This sample is inspired by Alvin Ashcraft's sample here [Tutorial--Create a recommendation app with .NET MAUI and ChatGPT - Windows apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/windows-dotnet-maui/tutorial-maui-ai), but I swapped out the OpenAI library he used with the official Microsoft Azure OpenAI package. Despite its name, it can hit OpenAI.com, doesn't have to hit Azure. So all you need is an OpenAI account and an API key. I also ported it to Blazor.
 
 If you want to recreate this sample yourself, follow the following steps:
